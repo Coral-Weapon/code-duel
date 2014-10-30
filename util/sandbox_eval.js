@@ -4,21 +4,22 @@
 // unfortunately, I don't know of a way to execute several scripts,
 // and maintain the global namespace between them,
 // but I'm looking into it. more to come.
-var SandCastle = require('sandcastle');
+var SandCastle = require('sandcastle').SandCastle;
 
 var sandbox_eval = function(obj, cb) {
   var allCode;
-  if (typeof obj === Object) {
+  if (typeof obj === "object") {
     var code = obj.code;
     var test = obj.test;
     var testFun = obj.testFun || 'testFunction';
-    var sandBox = obj.sandBox || new SandCastle();
+    var sandBox = obj.sandBox || new SandCastle({timeOut : 6000});
     // call the function named testFun inside the object.
     // kind of a cheap hack but whatever
-    allCode = [code, test, testFun+"()"].join(";\n");
+    allCode = [code, test ].join(";\n");
+
+    console.log(allCode);
   } else {
-    var sandBox = new SandCastle();
-    allCode = obj;
+    throw new Error("expected object");
   }
   var script = sandBox.createScript(allCode);
   // cb gets passed (error, output)
@@ -26,3 +27,5 @@ var sandbox_eval = function(obj, cb) {
   // we can add additional variables.
   script.run();
 };
+
+exports.sandbox_eval = sandbox_eval;

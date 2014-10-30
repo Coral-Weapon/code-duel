@@ -1,0 +1,24 @@
+var SandCastle = require('sandcastle').SandCastle;
+
+testFunction = function(meowMix) {
+	var testsPassed = 0;
+	var totalTests = 5;
+
+	testsPassed = (meowMix("Mustard and gravy") === "meowstrd nd grvy") +
+								(meowMix("fruit loops") === "frt lps") +
+								(meowMix("MmMmMm m")==="meowmeowmeowmeowmeowmeow meow") +
+								(meowMix("!@#$m!") === "!@#$meow!") + 
+								(meowMix("meow") === 'meoweow');
+	return (testsPassed / totalTests) * 100;
+};
+
+var userFun =
+	function () {return 'frt lps'};
+
+var s = new SandCastle({TimeOut: 6000});
+
+var foo = s.createScript("\n exports.main = function () {exit(userFun());}" );
+
+foo.on("exit", function (err, out) {console.log(err, out);});
+foo.run({userFun : userFun});
+
