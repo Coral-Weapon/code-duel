@@ -14,3 +14,7 @@ exports.testFunction = function(meowMix) {
 
 // in the future, tests.js needs to return feedback about
 // which test passed and which failed
+
+exports.main = function (meowMix) {
+	exit(testFunction(meowMix));
+};

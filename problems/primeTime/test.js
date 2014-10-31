@@ -28,3 +28,7 @@ exports.testFunction = function(primeTime) {
 
 // in the future, tests.js needs to return feedback about
 // which test passed and which failed
+
+exports.main = function (primeTime) {
+  exit(testFunction(primeTime));
+};
