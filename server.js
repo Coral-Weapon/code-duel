@@ -214,16 +214,16 @@ io.on('connection', function(socket){
       roomname: code.roomname,
       time: date
     }
-    
+
     if(currentScore === 0 && opponentScore === 0){
 
-      io.sockets.in(currentUser).emit('isWinner', {isWinner: false, opponentScore: opponentScore});
-      io.sockets.in(opponentId).emit('isWinner', {isWinner: false, opponentScore: currentScore});
+      io.sockets.in(currentUser).emit('isWinner', {isWinner: false, opponentScore: opponentScore, opponentCode:opponentCode});
+      io.sockets.in(opponentId).emit('isWinner', {isWinner: false, opponentScore: currentScore, opponentCode:currentCode});
 
     }else if(isPerfect || currentScore > opponentScore){
 
-      io.sockets.in(currentUser).emit('isWinner', {isWinner: true, opponentScore: opponentScore});
-      io.sockets.in(opponentId).emit('isWinner', {isWinner: false, opponentScore: currentScore});
+      io.sockets.in(currentUser).emit('isWinner', {isWinner: true, opponentScore: opponentScore, opponentCode:opponentCode});
+      io.sockets.in(opponentId).emit('isWinner', {isWinner: false, opponentScore: currentScore, opponentCode:currentCode});
       results.winner = code.player;
       results.loser = opponent;
       results.score = currentScore;
@@ -231,9 +231,9 @@ io.on('connection', function(socket){
       db.saveScore(results);
 
     }else{
-      
-      io.sockets.in(currentUser).emit('isWinner', {isWinner: false, opponentScore: opponentScore});
-      io.sockets.in(opponentId).emit('isWinner', {isWinner: true, opponentScore: currentScore});
+
+      io.sockets.in(currentUser).emit('isWinner', {isWinner: false, opponentScore: opponentScore, opponentCode:opponentCode});
+      io.sockets.in(opponentId).emit('isWinner', {isWinner: true, opponentScore: currentScore, opponentCode:currentCode});
       results.winner = opponent;
       results.loser = code.player;
       results.score = opponentScore;
