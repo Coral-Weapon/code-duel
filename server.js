@@ -311,7 +311,6 @@ io.on('connection', function(socket){
       gameOver(code, score, test, userId, true);
     }else{
       io.sockets.in(userId).emit('sendScore', compareScore(userId, score, code));
-      gameOver(code, score, test, userId, true);
     }
 
   });
